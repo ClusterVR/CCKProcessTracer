@@ -1,0 +1,12 @@
+{
+  "author": "Cluster, Inc.",
+  "name": "mu.cluster.cck-process-tracer",
+  "version": "1.0.0",
+  "displayName": "CCK Process Tracer",
+  "unity": "2021.3",
+  "description": "Visualize CCK Trigger transition",
+  "dependencies": {
+    "mu.cluster.cluster-creator-kit": "2.5.0"
+  },
+  "type": "tool"
+}
