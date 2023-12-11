@@ -1,0 +1,23 @@
+{
+    "name": "CCKProcessTracer.Editor",
+    "rootNamespace": "",
+    "references": [
+        "ClusterVR.CreatorKit.Gimmick",
+        "ClusterVR.CreatorKit.Gimmick.Implements",
+        "ClusterVR.CreatorKit.Item.Implements",
+        "ClusterVR.CreatorKit.Operation",
+        "ClusterVR.CreatorKit.Trigger",
+        "ClusterVR.CreatorKit.Item"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
