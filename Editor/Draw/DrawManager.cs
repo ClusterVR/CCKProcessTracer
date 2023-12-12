@@ -1,6 +1,6 @@
 namespace CCKProcessTracer.Editor
 {
-    public class DrawManager
+    public sealed class DrawManager
     {
         public static void ClearDrawObjects()
         {

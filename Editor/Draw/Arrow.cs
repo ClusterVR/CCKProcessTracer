@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class Arrow
+    public sealed class Arrow
     {
 
         public Vector2 from;

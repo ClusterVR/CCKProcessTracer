@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ObjectFrame : IButton
+    public sealed class ObjectFrame : IButton
     {
         readonly GameObject gameObject;
         readonly ProcessObject processObject;

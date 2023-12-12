@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public static class View
+    public sealed class View
     {
         public static float scale = 1;
         static Vector2 scaleCenterPosition = new Vector2(0, 0);

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace CCKProcessTracer.Editor
 {
-    public class ConnectFactory
+    public sealed class ConnectFactory
     {
         public static List<Connect> connects = new List<Connect>();
 

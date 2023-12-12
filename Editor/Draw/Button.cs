@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class Button
+    public sealed class Button
     {
 
         readonly IButton parent;

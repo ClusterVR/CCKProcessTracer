@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ProcessObjectsAligner
+    public sealed class ProcessObjectsAligner
     {
         const float processObjectIntervalX = 20f;
         const float processObjectIntervalY = 30f;

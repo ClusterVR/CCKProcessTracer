@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ObjectFrameDrawer : MonoBehaviour
+    public sealed class ObjectFrameDrawer : MonoBehaviour
     {
         public static List<ObjectFrame> objectFrames = new List<ObjectFrame>();
 

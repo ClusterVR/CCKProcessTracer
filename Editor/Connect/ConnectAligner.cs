@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ConnectAligner : MonoBehaviour
+    public sealed class ConnectAligner : MonoBehaviour
     {
         public static void Align(List<Connect> connects)
         {

@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class GimmickNode : Node
+    public sealed class GimmickNode : Node
     {
         public GimmickNode(ProcessObject _processObject) : base(_processObject)
         {

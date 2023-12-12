@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ArrowDrawer : MonoBehaviour
+    public sealed class ArrowDrawer : MonoBehaviour
     {
         public static List<Arrow> arrows = new List<Arrow>();
 

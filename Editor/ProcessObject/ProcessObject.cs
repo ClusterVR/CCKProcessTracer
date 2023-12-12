@@ -5,7 +5,7 @@ using ClusterVR.CreatorKit.Trigger;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ProcessObject
+    public sealed class ProcessObject
     {
 
         public enum DrawType
@@ -80,7 +80,7 @@ namespace CCKProcessTracer.Editor
             return allChildren;
         }
 
-        public class PutInfo
+        public sealed class PutInfo
         {
             public Vector2 putEndPosition;
             public List<ProcessObject> putObjects = new List<ProcessObject>();

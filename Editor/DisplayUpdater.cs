@@ -1,6 +1,6 @@
 namespace CCKProcessTracer.Editor
 {
-    public class DisplayUpdater
+    public sealed class DisplayUpdater
     {
         public static void Update()
         {

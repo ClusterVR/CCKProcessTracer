@@ -7,7 +7,7 @@ using ClusterVR.CreatorKit.Operation;
 using ClusterVR.CreatorKit.Trigger;
 namespace CCKProcessTracer.Editor
 {
-    public class NodeFactory
+    public sealed class NodeFactory
     {
         public const float nodeIntervalX = 30f;
         public const float nodeIntervalY = 30f;

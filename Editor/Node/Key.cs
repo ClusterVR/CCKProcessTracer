@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class Key : IButton
+    public sealed class Key : IButton
     {
-
         public enum Target
         {
             ownItem,

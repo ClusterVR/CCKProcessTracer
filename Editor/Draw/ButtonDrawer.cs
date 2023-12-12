@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ButtonDrawer : MonoBehaviour
+    public sealed class ButtonDrawer : MonoBehaviour
     {
         public static List<Button> buttons = new List<Button>();
 

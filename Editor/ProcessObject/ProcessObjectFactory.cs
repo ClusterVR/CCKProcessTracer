@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class ProcessObjectFactory
+    public sealed class ProcessObjectFactory
     {
         public static List<ProcessObject> processObjects = new List<ProcessObject>();
         public static bool displaySelectionOnly;

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 namespace CCKProcessTracer.Editor
 {
-    public class ProcessHighlighter
+    public sealed class ProcessHighlighter
     {
-        public static void ClearHighlights(List<Connect> connects, List<Node> nodes)
+        static void ClearHighlights(List<Connect> connects, List<Node> nodes)
         {
             foreach (var connect in connects)
             {

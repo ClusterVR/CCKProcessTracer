@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class TriggerNode : Node
+    public sealed class TriggerNode : Node
     {
         public TriggerNode(ProcessObject _processObject) : base(_processObject)
         {

@@ -1,6 +1,6 @@
 namespace CCKProcessTracer.Editor
 {
-    public class Connect
+    public sealed class Connect
     {
         public Arrow arrow;
 

@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
-    public class CCKProcessTracer : EditorWindow
+    public sealed class CCKProcessTracer : EditorWindow
     {
         void Update()
         {
