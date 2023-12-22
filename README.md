@@ -1,5 +1,5 @@
 # CCK Process Tracer
-<img src="https://github.com/ClusterVR/CCKProcessTracer/assets/45252271/72bc23aa-cfd7-411b-af5b-ed660ce24ee6" width="500px">
+<img src="https://github.com/ClusterVR/CCKProcessTracer/assets/45252271/2d08a1bc-e959-4d43-b240-75e6400e3f52" width="800px">
 
 CCK Process Tracer is a tool for Unity to visualize trigger transitions of CCK gimmicks.   
 Displays a list of CCK gimmick components and visualizes the connections between paired keys.   
