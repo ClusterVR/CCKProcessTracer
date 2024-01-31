@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using ClusterVR.CreatorKit.Gimmick;
-using ClusterVR.CreatorKit.Operation;
 using ClusterVR.CreatorKit.Trigger;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
@@ -16,19 +15,18 @@ namespace CCKProcessTracer.Editor
         }
 
         public DrawType drawType = DrawType.Normal;
-
         public bool folding = false;
-
         public GameObject gameObject;
-
+        public List<Node> nodes = new List<Node>();
+        
+        public ITrigger[] triggers;
         public IGimmick[] gimmicks;
+        
         public bool hasParentGameObject = false;
         public bool hiding;
-        public ILogic[] logics;
-        public List<Node> nodes = new List<Node>();
 
         public ObjectFrame objectFrame;
-        public ITrigger[] triggers;
+        
         public ProcessObject parent { get; private set; }
         public List<ProcessObject> children
         {
@@ -42,14 +40,23 @@ namespace CCKProcessTracer.Editor
             objectFrame = null;
         }
 
-        public bool ContainsComponent(object component)
+        public bool ContainsEntry(IGimmick entry)
         {
             foreach (var n in nodes)
             {
-                if (n.componentEntity == component)
-                    return true;
+                if (n.gimmickEntry == entry)
+                    return true; 
             }
-
+            return false;
+        }
+        
+        public bool ContainsEntry(ITrigger entry)
+        {
+            foreach (var n in nodes)
+            {
+                if (n.triggerEntry == entry)
+                    return true; 
+            }
             return false;
         }
 

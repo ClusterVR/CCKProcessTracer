@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 namespace CCKProcessTracer.Editor
 {
     public sealed class ConnectFactory
@@ -16,9 +17,9 @@ namespace CCKProcessTracer.Editor
                     {
                         if (string.IsNullOrEmpty(key.keyName) || string.IsNullOrEmpty(targetNode.receiveKeyName))
                             continue;
-                        string keyName = TrimAxis(key.keyName);
-                        string targetKeyName = TrimAxis(targetNode.receiveKeyName);
-
+                        var keyName = TrimAxis(key.keyName);
+                        var targetKeyName = TrimAxis(targetNode.receiveKeyName); 
+                        
                         if (keyName == targetKeyName)
                         {
                             if (key.target == Key.Target.ownItem)

@@ -24,7 +24,7 @@ namespace CCKProcessTracer.Editor
                 b.rect = new Rect(position.x, position.y + keyYPos, nodeWidth, keyHeight);
                 b.text = useKeys[i].keyName;
 
-                useKeys[i].arrowSendPosition = new Vector2(position.x + nodeWidth, position.y + keyYPos + nameHeight * .5f);
+                useKeys[i].arrowSendPosition = new Vector2(position.x + nodeWidth, position.y + keyYPos + keyHeight * .5f);
             }
 
             return new Vector2(position.x + nodeWidth,

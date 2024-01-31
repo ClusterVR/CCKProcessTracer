@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using ClusterVR.CreatorKit.Gimmick;
+using ClusterVR.CreatorKit.Operation;
+using ClusterVR.CreatorKit.Trigger;
 using UnityEditor;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
@@ -15,15 +18,19 @@ namespace CCKProcessTracer.Editor
         }
         protected const float nameKeyInterval = 0f;
         protected const float keyInterval = 0f;
-        protected const float keyHeight = 30f;
+        protected const float keyHeight = 25f;
         protected const float nameHeight = 50f;
         protected const float nodeWidth = 200f;
 
         public const float verticalNodeInterval = 20f;
         public Vector2 arrowReceivePosition;
+        
+        public Component componentEntry;
+        public ITrigger triggerEntry;
+        public IGimmick gimmickEntry;
+        public ILogic logicEntry;
 
         public List<Key> beforeKeys = new List<Key>();
-        public object componentEntity;
         public List<Connect> connects = new List<Connect>();
         public string displayName;
         public bool highlighted = false;
@@ -49,6 +56,16 @@ namespace CCKProcessTracer.Editor
 
         protected abstract Vector2 PutNode(Vector2 position);
 
+        public bool ContainsKey(Key key)
+        {
+            foreach (var k in this.useKeys)
+            {
+                if (k == key)
+                    return true;
+            }
+            return false;
+        }
+        
         public Vector2 PutNodeRecursive(Vector2 nowPosition, List<Node> notYetPutNodes)
         {
             if (!notYetPutNodes.Contains(this))
