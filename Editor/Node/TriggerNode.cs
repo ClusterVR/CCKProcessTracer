@@ -23,6 +23,7 @@ namespace CCKProcessTracer.Editor
                 float keyYPos = nameHeight + nameKeyInterval + (keyHeight + keyInterval) * i;
                 b.rect = new Rect(position.x, position.y + keyYPos, nodeWidth, keyHeight);
                 b.text = useKeys[i].keyName;
+                b.textColor = new Color(0.933f, 0.933f, 0.7f, 1.000f);
 
                 useKeys[i].arrowSendPosition = new Vector2(position.x + nodeWidth, position.y + keyYPos + keyHeight * .5f);
             }

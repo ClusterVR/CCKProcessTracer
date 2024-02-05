@@ -88,13 +88,13 @@ namespace CCKProcessTracer.Editor
 
                 switch (o.drawType)
                 {
-                    case ProcessObject.DrawType.SetterOnly:
+                    case ProcessObject.DrawType.TriggerOnly:
                         nowPosition.x += 0;
                         break;
                     case ProcessObject.DrawType.Normal:
                         nowPosition.x += typeOffsetX;
                         break;
-                    case ProcessObject.DrawType.GetterOnly:
+                    case ProcessObject.DrawType.GimmickOnly:
                         nowPosition.x += typeOffsetX * 2;
                         break;
                 }
@@ -119,44 +119,17 @@ namespace CCKProcessTracer.Editor
             }
             else
             {
-                var triggerNodes = new List<TriggerNode>();
+                var notYetPutNodes = new List<Node>(o.nodes);
                 foreach (var node in o.nodes)
-                {
-                    if (node is TriggerNode)
-                        triggerNodes.Add(node as TriggerNode);
-                }
-
-                var notYetPutNodes = new List<Node>();
-
-                foreach (var node in o.nodes)
-                {
-                    notYetPutNodes.Add(node);
-                }
-
-                foreach (var node in triggerNodes)
                 {
                     var triggerNodePosition = node.PutNodeRecursive(new Vector2(nowPosition.x, nowPosition.y), notYetPutNodes);
-
                     nowPosition.y = triggerNodePosition.y;
                     nowPosition.y += Node.verticalNodeInterval;
-
-                    if (triggerNodePosition.x > maxXPosition)
-                        maxXPosition = triggerNodePosition.x;
-                }
-
-                while (notYetPutNodes.Count > 0)
-                {
-                    var noTriggerNodePosition = notYetPutNodes[0].PutNodeRecursive(new Vector2(nowPosition.x, nowPosition.y), notYetPutNodes);
-
-                    nowPosition.y = noTriggerNodePosition.y;
-                    nowPosition.y += Node.verticalNodeInterval;
-
-                    if (maxXPosition < noTriggerNodePosition.x)
-                        maxXPosition = noTriggerNodePosition.x;
+                    maxXPosition = Mathf.Max(maxXPosition, triggerNodePosition.x);
                 }
 
                 var childPutPosition = new Vector2(maxXPosition, frameOriginPos.y);
-                float childPutPositionXMax = maxXPosition;
+                var childPutPositionXMax = maxXPosition;
                 foreach (var child in o.children)
                 {
                     var p = PutProcessObject(child,
@@ -167,8 +140,8 @@ namespace CCKProcessTracer.Editor
                     childPutPosition.y = p.putEndPosition.y;
                     childPutPositionXMax = Mathf.Max(childPutPositionXMax, p.putEndPosition.x);
                 }
-
-                nowPosition.x = Mathf.Max(maxXPosition, childPutPositionXMax);
+                
+                nowPosition.x = childPutPositionXMax;
                 nowPosition.y = Mathf.Max(nowPosition.y, childPutPosition.y);
             }
 

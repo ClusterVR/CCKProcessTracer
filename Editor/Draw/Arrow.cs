@@ -3,7 +3,6 @@ namespace CCKProcessTracer.Editor
 {
     public sealed class Arrow
     {
-
         public Vector2 from;
         public bool highlight;
         public Vector2 to;

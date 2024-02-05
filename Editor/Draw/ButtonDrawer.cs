@@ -22,8 +22,10 @@ namespace CCKProcessTracer.Editor
                 scaledRect.y = pos.y;
                 scaledRect.width = button.rect.width * View.scale;
                 scaledRect.height = button.rect.height * View.scale;
-
-                if (GUI.Button(scaledRect, button.text))
+                
+                var style = new GUIStyle("button");
+                style.normal.textColor = button.textColor;
+                if (GUI.Button(scaledRect, button.text, style))
                 {
                     button.OnPress();
                 }
