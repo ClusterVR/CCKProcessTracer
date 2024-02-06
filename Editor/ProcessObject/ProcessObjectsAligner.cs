@@ -13,7 +13,7 @@ namespace CCKProcessTracer.Editor
         const float typeOffsetX = 140f;
 
         static readonly Dictionary<int, Vector2> instanceIdDictionary = new Dictionary<int, Vector2>();
-        static float lastPutPositionX;
+        static float lastPutPositionX; //親ごとに整理した際に、もっとも右に次のNodeを追加するための変数
 
         static void Reset()
         {
@@ -79,7 +79,7 @@ namespace CCKProcessTracer.Editor
                     float x = 0f;
                     if (instanceIdDictionary.Values.Count > 0)
                     {
-                        x += lastPutPositionX + processObjectIntervalX + typeOffsetX * 2;
+                        x = lastPutPositionX + processObjectIntervalX * 2 + typeOffsetX * 2;
                     }
                     nowPosition.x = x;
                     nowPosition.y = processObjectIntervalY;
@@ -105,7 +105,7 @@ namespace CCKProcessTracer.Editor
             }
 
             var frameOriginPos = nowPosition;
-            nowPosition.y += verticalMargin;
+            nowPosition.y += verticalMargin; // FrameとNodeの間に隙間を作る
             float maxXPosition = 0;
 
             if (o.folding)
@@ -129,7 +129,6 @@ namespace CCKProcessTracer.Editor
                 }
 
                 var childPutPosition = new Vector2(maxXPosition, frameOriginPos.y);
-                var childPutPositionXMax = maxXPosition;
                 foreach (var child in o.children)
                 {
                     var p = PutProcessObject(child,
@@ -138,10 +137,10 @@ namespace CCKProcessTracer.Editor
                     putInfo.putObjects.AddRange(p.putObjects);
 
                     childPutPosition.y = p.putEndPosition.y;
-                    childPutPositionXMax = Mathf.Max(childPutPositionXMax, p.putEndPosition.x);
+                    maxXPosition = Mathf.Max(maxXPosition, p.putEndPosition.x);
                 }
                 
-                nowPosition.x = childPutPositionXMax;
+                nowPosition.x = maxXPosition;
                 nowPosition.y = Mathf.Max(nowPosition.y, childPutPosition.y);
             }
 
@@ -152,14 +151,12 @@ namespace CCKProcessTracer.Editor
             }
             else
             {
-                rect = new Rect(frameOriginPos.x - 10f, frameOriginPos.y,
-                    nowPosition.x - frameOriginPos.x + horizontalMargin,
-                    nowPosition.y - frameOriginPos.y + verticalMargin);
+                rect = new Rect(frameOriginPos.x - horizontalMargin, frameOriginPos.y,
+                    nowPosition.x - frameOriginPos.x - horizontalMargin, nowPosition.y - frameOriginPos.y);
             }
 
             var newFrame = new ObjectFrame(rect, o.gameObject, o);
             o.objectFrame = newFrame;
-
             if (o.parent == null)
             {
                 instanceIdDictionary[instanceId] = new Vector2(instanceIdDictionary[instanceId].x, nowPosition.y);
