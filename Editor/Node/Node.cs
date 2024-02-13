@@ -15,15 +15,16 @@ namespace CCKProcessTracer.Editor
         }
         protected const float nameKeyInterval = 0f;
         protected const float keyInterval = 0f;
-        protected const float keyHeight = 30f;
+        protected const float keyHeight = 25f;
         protected const float nameHeight = 50f;
         protected const float nodeWidth = 200f;
 
         public const float verticalNodeInterval = 20f;
         public Vector2 arrowReceivePosition;
+        
+        public GimmickNode childGimmickNode;
 
         public List<Key> beforeKeys = new List<Key>();
-        public object componentEntity;
         public List<Connect> connects = new List<Connect>();
         public string displayName;
         public bool highlighted = false;
@@ -49,18 +50,36 @@ namespace CCKProcessTracer.Editor
 
         protected abstract Vector2 PutNode(Vector2 position);
 
+        public bool ContainsKey(Key key)
+        {
+            foreach (var k in this.useKeys)
+            {
+                if (k == key)
+                    return true;
+            }
+            return false;
+        }
+        
         public Vector2 PutNodeRecursive(Vector2 nowPosition, List<Node> notYetPutNodes)
         {
             if (!notYetPutNodes.Contains(this))
                 return nowPosition;
-
-
+            var existChildGimmickNode = childGimmickNode != null;
+            if (existChildGimmickNode || useKeys.Count == 0) // Node内にGimmickがある場合はArrowが見えづらいため横にずらす
+            {
+                nowPosition.x += nodeWidth + NodeFactory.nodeIntervalX;
+            }
             var putPosition = PutNode(nowPosition);
-            float tmpY = putPosition.y;
-            nowPosition.x = putPosition.x + NodeFactory.nodeIntervalX;
-
+            nowPosition.y = putPosition.y;
             notYetPutNodes.Remove(this);
-
+            if (existChildGimmickNode)
+            {
+                var childPosition = childGimmickNode.PutNode(nowPosition);
+                nowPosition.y = childPosition.y;
+            }
+            nowPosition.x = putPosition.x + NodeFactory.nodeIntervalX;
+            nowPosition.y += verticalNodeInterval;
+            
             foreach (var key in useKeys)
             {
                 foreach (var afterNode in key.afterNodes)
@@ -68,27 +87,14 @@ namespace CCKProcessTracer.Editor
                     if (afterNode.processObject == processObject && notYetPutNodes.Contains(afterNode))
                     {
                         putPosition = afterNode.PutNodeRecursive(nowPosition, notYetPutNodes);
-
-
-                        if (putPosition.y > nowPosition.y)
-                            nowPosition.y = putPosition.y;
-                        if (tmpY > nowPosition.y)
-                            nowPosition.y = tmpY;
-
+                        nowPosition.y = Mathf.Max(putPosition.y, nowPosition.y);
                         nowPosition.y += verticalNodeInterval;
                     }
                 }
-            }
-
-            nowPosition.y -= verticalNodeInterval;
-
-            if (putPosition.x > nowPosition.x)
-                nowPosition.x = putPosition.x;
-
-            if (putPosition.y > nowPosition.y)
-                nowPosition.y = putPosition.y;
-
-
+            } 
+            nowPosition.x = Mathf.Max(putPosition.x, nowPosition.x);
+            nowPosition.y = Mathf.Max(putPosition.y, nowPosition.y);
+            
             return nowPosition;
         }
     }

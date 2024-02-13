@@ -7,7 +7,8 @@
         "ClusterVR.CreatorKit.Item.Implements",
         "ClusterVR.CreatorKit.Operation",
         "ClusterVR.CreatorKit.Trigger",
-        "ClusterVR.CreatorKit.Item"
+        "ClusterVR.CreatorKit.Item",
+        "ClusterVR.CreatorKit"
     ],
     "includePlatforms": [
         "Editor"

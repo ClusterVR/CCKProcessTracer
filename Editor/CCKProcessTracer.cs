@@ -34,6 +34,7 @@ namespace CCKProcessTracer.Editor
 
             View.Control();
         }
+        
         [MenuItem("CCKProcessTracer/OpenWindow")]
         static void Open()
         {

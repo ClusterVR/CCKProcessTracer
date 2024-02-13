@@ -1,34 +1,28 @@
 using System.Collections.Generic;
-using ClusterVR.CreatorKit.Gimmick;
-using ClusterVR.CreatorKit.Operation;
-using ClusterVR.CreatorKit.Trigger;
 using UnityEngine;
 namespace CCKProcessTracer.Editor
 {
     public sealed class ProcessObject
     {
-
         public enum DrawType
         {
             Normal,
-            SetterOnly,
-            GetterOnly,
+            GimmickOnly, //Setされる側
+            TriggerOnly, //Setする側
         }
 
         public DrawType drawType = DrawType.Normal;
-
         public bool folding = false;
-
         public GameObject gameObject;
-
-        public IGimmick[] gimmicks;
+        public List<Node> nodes = new List<Node>();
+        
+        public Entry[] entries;
+        
         public bool hasParentGameObject = false;
         public bool hiding;
-        public ILogic[] logics;
-        public List<Node> nodes = new List<Node>();
 
         public ObjectFrame objectFrame;
-        public ITrigger[] triggers;
+        
         public ProcessObject parent { get; private set; }
         public List<ProcessObject> children
         {
@@ -40,17 +34,6 @@ namespace CCKProcessTracer.Editor
             hiding = false;
             nodes.Clear();
             objectFrame = null;
-        }
-
-        public bool ContainsComponent(object component)
-        {
-            foreach (var n in nodes)
-            {
-                if (n.componentEntity == component)
-                    return true;
-            }
-
-            return false;
         }
 
         public void SetParent(ProcessObject _parent)
