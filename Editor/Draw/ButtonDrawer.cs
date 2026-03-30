@@ -16,13 +16,16 @@ namespace CCKProcessTracer.Editor
         {
             foreach (var button in buttons)
             {
+                if (!KeyFilter.IsButtonVisible(button.Owner))
+                    continue;
+
                 var scaledRect = new Rect();
                 var pos = View.ProcessViewPosition(new Vector2(button.rect.x, button.rect.y));
                 scaledRect.x = pos.x;
                 scaledRect.y = pos.y;
                 scaledRect.width = button.rect.width * View.scale;
                 scaledRect.height = button.rect.height * View.scale;
-                
+
                 var style = new GUIStyle("button");
                 style.normal.textColor = button.textColor;
                 if (GUI.Button(scaledRect, button.text, style))

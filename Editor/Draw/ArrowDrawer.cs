@@ -15,7 +15,7 @@ namespace CCKProcessTracer.Editor
         {
             foreach (var a in arrows)
             {
-                if (!a.highlight)
+                if (!a.highlight && KeyFilter.IsArrowVisible(a))
                     DrawArrow(a.from, a.to, Color.gray);
             }
         }
@@ -24,7 +24,7 @@ namespace CCKProcessTracer.Editor
         {
             foreach (var a in arrows)
             {
-                if (a.highlight)
+                if (a.highlight && KeyFilter.IsArrowVisible(a))
                     DrawArrow(a.from, a.to, Color.yellow);
             }
         }

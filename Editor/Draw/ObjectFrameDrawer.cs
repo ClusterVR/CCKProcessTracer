@@ -16,6 +16,9 @@ namespace CCKProcessTracer.Editor
         {
             foreach (var f in objectFrames)
             {
+                if (!KeyFilter.IsFrameVisible(f.processObject))
+                    continue;
+
                 Handles.color = Color.gray;
 
                 Vector3 upLeft = View.ProcessViewPosition(new Vector2(f.rect.xMin, f.rect.yMin));

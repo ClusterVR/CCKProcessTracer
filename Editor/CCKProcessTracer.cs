@@ -32,6 +32,25 @@ namespace CCKProcessTracer.Editor
             ProcessObjectFactory.displaySelectionOnly = GUI.Toggle(new Rect(position.size.x - 150, 60, 150, 30),
                 ProcessObjectFactory.displaySelectionOnly, "Display Selection Only");
 
+            var prevEnabled = KeyFilter.enabled;
+            KeyFilter.enabled = GUI.Toggle(new Rect(position.size.x - 150, 90, 150, 30),
+                KeyFilter.enabled, "Filter by Key");
+
+            if (KeyFilter.enabled)
+            {
+                var prevIndex = KeyFilter.selectedKeyIndex;
+                KeyFilter.selectedKeyIndex = EditorGUI.Popup(
+                    new Rect(position.size.x - 150, 120, 150, 20),
+                    KeyFilter.selectedKeyIndex,
+                    KeyFilter.keyDisplayNames);
+
+                if (prevIndex != KeyFilter.selectedKeyIndex)
+                    KeyFilter.BuildFilterSets();
+            }
+
+            if (prevEnabled != KeyFilter.enabled)
+                KeyFilter.BuildFilterSets();
+
             View.Control();
         }
         

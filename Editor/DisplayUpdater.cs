@@ -14,8 +14,12 @@ namespace CCKProcessTracer.Editor
             var nodes = NodeFactory.Create(objects);
             var connects = ConnectFactory.Create(nodes);
 
+            KeyFilter.CollectKeyNames(nodes);
+
             ProcessObjectsAligner.Align(objects);
             ConnectAligner.Align(connects);
+
+            KeyFilter.BuildFilterSets();
         }
     }
 }
