@@ -5,7 +5,7 @@ namespace CCKProcessTracer.Editor
     public sealed class ObjectFrame : IButton
     {
         readonly GameObject gameObject;
-        readonly ProcessObject processObject;
+        public readonly ProcessObject processObject;
 
         public Rect rect;
 

@@ -76,7 +76,7 @@ namespace CCKProcessTracer.Editor
             return connects;
         }
 
-        static string TrimAxis(string key)
+        public static string TrimAxis(string key)
         {
             if (key.EndsWith(".x") || key.EndsWith(".y") || key.EndsWith(".z"))
             {

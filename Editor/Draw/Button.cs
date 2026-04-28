@@ -4,6 +4,7 @@ namespace CCKProcessTracer.Editor
     public sealed class Button
     {
         readonly IButton parent;
+        public IButton Owner => parent;
         public Rect rect;
         public string text;
         public Color textColor = new Color(0.933f, 0.933f, 0.933f, 1.000f);
