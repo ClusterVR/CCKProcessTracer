@@ -104,6 +104,8 @@ namespace CCKProcessTracer.Editor
                 nowPosition.y += processObjectIntervalY;
             }
 
+            nowPosition += o.dragOffset;
+
             var frameOriginPos = nowPosition;
             nowPosition.y += verticalMargin; // FrameとNodeの間に隙間を作る
             float maxXPosition = 0;

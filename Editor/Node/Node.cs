@@ -21,6 +21,8 @@ namespace CCKProcessTracer.Editor
 
         public const float verticalNodeInterval = 20f;
         public Vector2 arrowReceivePosition;
+        public Rect rect;
+        public Vector2 dragOffset;
         
         public GimmickNode childGimmickNode;
 

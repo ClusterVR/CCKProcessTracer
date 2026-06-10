@@ -18,6 +18,7 @@ namespace CCKProcessTracer.Editor
         void OnGUI()
         {
             wantsMouseMove = true;
+            NodeDragController.Control();
             DrawManager.Draw();
 
             if (GUI.Button(new Rect(position.size.x - 150, 0, 150, 30), "UpdateNodes"))
@@ -28,6 +29,11 @@ namespace CCKProcessTracer.Editor
             if (GUI.Button(new Rect(position.size.x - 150, 30, 150, 30), "ResetView"))
             {
                 View.Reset();
+                foreach (var o in ProcessObjectFactory.processObjects)
+                {
+                    if (o != null) o.dragOffset = Vector2.zero;
+                }
+                DisplayUpdater.Update();
             }
             ProcessObjectFactory.displaySelectionOnly = GUI.Toggle(new Rect(position.size.x - 150, 60, 150, 30),
                 ProcessObjectFactory.displaySelectionOnly, "Display Selection Only");

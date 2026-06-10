@@ -22,6 +22,7 @@ namespace CCKProcessTracer.Editor
         public bool hiding;
 
         public ObjectFrame objectFrame;
+        public Vector2 dragOffset;
         
         public ProcessObject parent { get; private set; }
         public List<ProcessObject> children

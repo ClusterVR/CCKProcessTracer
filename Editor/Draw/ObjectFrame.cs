@@ -8,12 +8,14 @@ namespace CCKProcessTracer.Editor
         public readonly ProcessObject processObject;
 
         public Rect rect;
+        public Rect nameButtonRect;
 
         public ObjectFrame(Rect rect, GameObject gameObject, ProcessObject processObject)
         {
             this.rect = rect;
 
             var nameButtonRect = new Rect(rect.position, new Vector2(16 + gameObject.name.Length * 10.5f, 20));
+            this.nameButtonRect = nameButtonRect;
 
             var objectNameButton = new Button(this);
             objectNameButton.rect = nameButtonRect;
