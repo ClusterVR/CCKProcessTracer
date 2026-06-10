@@ -15,6 +15,7 @@ namespace CCKProcessTracer.Editor
         {
             processObjects.Clear();
             SearchGimmicksAndCreate();
+            processObjects.Sort((a, b) => CompareHierarchy(a.gameObject, b.gameObject));
             SetParentToProcessObjects();
         }
 
@@ -135,6 +136,40 @@ namespace CCKProcessTracer.Editor
                 }
             }
             return dict.Values.Select(v => new Entry(v.Item1, v.Item2)).ToArray();
+        }
+
+        private static int CompareHierarchy(GameObject a, GameObject b)
+        {
+            if (a == b) return 0;
+            if (a == null) return 1;
+            if (b == null) return -1;
+
+            var pathA = GetTransformPath(a.transform);
+            var pathB = GetTransformPath(b.transform);
+
+            int minLength = Mathf.Min(pathA.Count, pathB.Count);
+            for (int i = 0; i < minLength; i++)
+            {
+                if (pathA[i] != pathB[i])
+                {
+                    return pathA[i].GetSiblingIndex().CompareTo(pathB[i].GetSiblingIndex());
+                }
+            }
+
+            return pathA.Count.CompareTo(pathB.Count);
+        }
+
+        private static List<Transform> GetTransformPath(Transform t)
+        {
+            var path = new List<Transform>();
+            var current = t;
+            while (current != null)
+            {
+                path.Add(current);
+                current = current.parent;
+            }
+            path.Reverse();
+            return path;
         }
     }
 }
