@@ -44,7 +44,7 @@ namespace CCKProcessTracer.Editor.WorldItemReferenceListTracer
             View.Control();
         }
 
-        [MenuItem("CCKProcessTracer/OpenWorldItemRefTracerWindow")]
+        [MenuItem("CCKProcessTracer/WorldItemRefTracer")]
         static void Open()
         {
             var window = GetWindow<TracerWindow>();
