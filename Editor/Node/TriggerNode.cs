@@ -9,6 +9,9 @@ namespace CCKProcessTracer.Editor
 
         protected override Vector2 PutNode(Vector2 position)
         {
+            float totalHeight = nameHeight + nameKeyInterval + (keyHeight + keyInterval) * useKeys.Count;
+            this.rect = new Rect(position.x, position.y, nodeWidth, totalHeight);
+
             arrowReceivePosition = new Vector2(position.x, position.y + nameHeight * .5f);
 
             var b = new Button(this)
@@ -22,14 +25,13 @@ namespace CCKProcessTracer.Editor
                 b = new Button(useKeys[i]);
                 float keyYPos = nameHeight + nameKeyInterval + (keyHeight + keyInterval) * i;
                 b.rect = new Rect(position.x, position.y + keyYPos, nodeWidth, keyHeight);
-                b.text = useKeys[i].keyName;
+                b.text = useKeys[i].GetDisplayName();
                 b.textColor = new Color(0.933f, 0.933f, 0.7f, 1.000f);
 
                 useKeys[i].arrowSendPosition = new Vector2(position.x + nodeWidth, position.y + keyYPos + keyHeight * .5f);
             }
 
-            return new Vector2(position.x + nodeWidth,
-                position.y + nameHeight + nameKeyInterval + (keyHeight + keyInterval) * useKeys.Count);
+            return new Vector2(position.x + nodeWidth, position.y + totalHeight);
         }
     }
 }

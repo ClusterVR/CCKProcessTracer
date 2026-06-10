@@ -51,5 +51,11 @@ namespace CCKProcessTracer.Editor
             var screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
             return (position - screenCenter + scrollPosition) * scale + screenCenter;
         }
+
+        public static Vector2 ScreenToCanvasPosition(Vector2 screenPosition)
+        {
+            var screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+            return (screenPosition - screenCenter) / scale + screenCenter - scrollPosition;
+        }
     }
 }
