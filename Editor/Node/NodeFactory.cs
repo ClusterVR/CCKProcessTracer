@@ -111,6 +111,7 @@ namespace CCKProcessTracer.Editor
         static Key SetUpTriggerKey(ProcessObject processObject, Node node, TriggerParam triggerParam)
         {
             var key = new Key(triggerParam.RawKey, processObject, node);
+            key.parameterType = triggerParam.ParameterType;
             if (triggerParam.Target == TriggerTarget.SpecifiedItem && triggerParam.SpecifiedTargetItem != null)
             {
                 key.targetObject = triggerParam.SpecifiedTargetItem.gameObject;

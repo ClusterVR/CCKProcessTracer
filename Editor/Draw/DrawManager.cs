@@ -11,10 +11,11 @@ namespace CCKProcessTracer.Editor
 
         public static void Draw()
         {
+            ObjectFrameDrawer.Draw();
+            NodeDrawer.Draw();
             ArrowDrawer.DrawNormalArrow();
             ButtonDrawer.Draw();
             ArrowDrawer.DrawHighlightAllow();
-            ObjectFrameDrawer.Draw();
         }
     }
 }

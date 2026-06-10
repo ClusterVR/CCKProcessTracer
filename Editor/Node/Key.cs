@@ -22,7 +22,7 @@ namespace CCKProcessTracer.Editor
             vector2Type,
             vector3Type,
         }
-        public List<Node> afterNodes = new List<Node>();
+                public List<Node> afterNodes = new List<Node>();
 
         public Vector2 arrowSendPosition;
         public List<Connect> connects = new List<Connect>();
@@ -31,6 +31,7 @@ namespace CCKProcessTracer.Editor
         public string keyName;
         public Target target;
         public GameObject targetObject;
+        public ClusterVR.CreatorKit.ParameterType parameterType;
 
         public Key(string name, ProcessObject _processObject, Node _node)
         {
@@ -38,6 +39,20 @@ namespace CCKProcessTracer.Editor
 
             processObject = _processObject;
             node = _node;
+        }
+
+        public string GetDisplayName()
+        {
+            string targetStr = target switch
+            {
+                Target.ownItem => "this",
+                Target.specifiedItem => "Item",
+                Target.global => "Global",
+                Target.player => "Player",
+                Target.collidedItemOrPlayer => "Collided",
+                _ => target.ToString()
+            };
+            return $"{keyName} - {targetStr}, {parameterType}";
         }
         public ProcessObject processObject
         {
