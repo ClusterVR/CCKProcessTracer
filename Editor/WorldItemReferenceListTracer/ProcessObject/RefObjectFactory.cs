@@ -157,55 +157,92 @@ namespace CCKProcessTracer.Editor.WorldItemReferenceListTracer
 
         private static void AlignObjects()
         {
-            float startX = 30f;
-            float startY = 50f;
-
-            float currentX = startX;
-            float currentY = startY;
-
-            float colWidth = 260f;
-            float rowHeight = 120f;
-
+            var layers = new Dictionary<RefObject, int>();
             foreach (var obj in refObjects)
             {
-                Vector2 pos = new Vector2(currentX, currentY) + obj.dragOffset;
+                layers[obj] = 0;
+            }
 
-                float nodeY = pos.y + 20f;
-                float maxX = pos.x;
-                float maxY = nodeY;
-
-                foreach (var node in obj.nodes)
+            bool changed = true;
+            int maxIterations = refObjects.Count * 2;
+            int iter = 0;
+            while (changed && iter < maxIterations)
+            {
+                changed = false;
+                iter++;
+                foreach (var connect in connects)
                 {
-                    var nodeEnd = node.PutNode(new Vector2(pos.x, nodeY));
-                    maxX = Mathf.Max(maxX, nodeEnd.x);
-                    maxY = Mathf.Max(maxY, nodeEnd.y);
-                    nodeY = nodeEnd.y + Node.verticalNodeInterval;
+                    if (connect == null || connect.from == null || connect.to == null) continue;
+
+                    var fromObj = refObjects.FirstOrDefault(o => o.nodes.Contains(connect.from.node));
+                    var toObj = connect.to.refObject;
+
+                    if (fromObj != null && toObj != null)
+                    {
+                        int targetLayer = layers[fromObj] + 1;
+                        if (layers[toObj] < targetLayer)
+                        {
+                            if (targetLayer < 20)
+                            {
+                                layers[toObj] = targetLayer;
+                                changed = true;
+                            }
+                        }
+                    }
                 }
+            }
 
-                Rect frameRect = new Rect(pos.x - 10f, pos.y, (maxX - pos.x) + 20f, (maxY - pos.y) + 10f);
-                if (obj.nodes.Count == 0)
+            var layerGroups = new Dictionary<int, List<RefObject>>();
+            foreach (var obj in refObjects)
+            {
+                int layer = layers[obj];
+                if (!layerGroups.ContainsKey(layer))
                 {
-                    frameRect = new Rect(pos.x - 10f, pos.y, 100f, 40f);
+                    layerGroups[layer] = new List<RefObject>();
                 }
+                layerGroups[layer].Add(obj);
+            }
 
-                obj.objectFrame = new ObjectFrame(frameRect, obj.gameObject, obj);
+            float startX = 30f;
+            float startY = 50f;
+            float colWidth = 350f;
+            float rowMargin = 40f;
 
-                bool hasIncoming = connects.Any(c => c.to.refObject == obj);
-                bool hasOutgoing = obj.nodes.Any(n => n.useKeys.Any(k => k.targetObject != null));
+            foreach (var pair in layerGroups)
+            {
+                int layer = pair.Key;
+                var objsInLayer = pair.Value;
 
-                if (hasOutgoing && !hasIncoming)
+                float currentY = startY;
+                float currentX = startX + layer * colWidth;
+
+                foreach (var obj in objsInLayer)
                 {
-                    currentX = startX;
-                    currentY += rowHeight + 50f;
-                }
-                else if (hasIncoming)
-                {
-                    currentX += colWidth + 50f;
-                }
-                else
-                {
-                    currentX = startX;
-                    currentY += rowHeight + 50f;
+                    Vector2 pos = new Vector2(currentX, currentY) + obj.dragOffset;
+
+                    float nodeY = pos.y + 20f;
+                    float maxX = pos.x;
+                    float maxY = nodeY;
+
+                    foreach (var node in obj.nodes)
+                    {
+                        var nodeEnd = node.PutNode(new Vector2(pos.x, nodeY));
+                        maxX = Mathf.Max(maxX, nodeEnd.x);
+                        maxY = Mathf.Max(maxY, nodeEnd.y);
+                        nodeY = nodeEnd.y + Node.verticalNodeInterval;
+                    }
+
+                    float frameHeight = (maxY - pos.y) + 10f;
+                    Rect frameRect = new Rect(pos.x - 10f, pos.y, (maxX - pos.x) + 20f, frameHeight);
+                    if (obj.nodes.Count == 0)
+                    {
+                        frameRect = new Rect(pos.x - 10f, pos.y, 100f, 40f);
+                        frameHeight = 40f;
+                    }
+
+                    obj.objectFrame = new ObjectFrame(frameRect, obj.gameObject, obj);
+
+                    currentY += frameHeight + rowMargin;
                 }
             }
         }
