@@ -7,11 +7,6 @@ namespace CCKProcessTracer.Editor.WorldItemReferenceListTracer
             ButtonDrawer.Clear();
             ObjectFrameDrawer.Clear();
 
-            foreach (var obj in RefObjectFactory.refObjects)
-            {
-                obj.ResetDisplayState();
-            }
-
             RefObjectFactory.RebuildAndAlign();
         }
     }
