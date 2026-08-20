@@ -6,7 +6,6 @@ namespace CCKProcessTracer.Editor.WorldItemReferenceListTracer
     public sealed class RefObject
     {
         public GameObject gameObject;
-        public List<string> scriptNames = new List<string>();
         public List<Node> nodes = new List<Node>();
         public ObjectFrame objectFrame;
         public Vector2 dragOffset;
