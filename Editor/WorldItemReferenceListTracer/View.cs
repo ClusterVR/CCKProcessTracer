@@ -5,7 +5,6 @@ namespace CCKProcessTracer.Editor.WorldItemReferenceListTracer
     public sealed class View
     {
         public static float scale = 1;
-        static Vector2 scaleCenterPosition = new Vector2(0, 0);
         static Vector2 scrollPosition = new Vector2(0, 0);
         static Vector2 beforeMousePosition = Vector2.zero;
 
@@ -19,7 +18,6 @@ namespace CCKProcessTracer.Editor.WorldItemReferenceListTracer
         {
             if (Event.current.type == EventType.ScrollWheel)
             {
-                scaleCenterPosition = Event.current.mousePosition;
                 scale += Event.current.delta.y * -.03f * scale;
                 if (scale < 0.01f) scale = 0.01f;
             }
