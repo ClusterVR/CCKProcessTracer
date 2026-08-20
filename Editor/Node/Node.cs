@@ -45,7 +45,7 @@ namespace CCKProcessTracer.Editor
         {
             ProcessHighlighter.Highlight(this);
             Selection.activeGameObject = processObject.gameObject;
-            Debug.Log($"GameObject: {processObject.gameObject.name}\r\nComponent: {displayName}");
+            Debug.Log($"GameObject: {processObject.gameObject.name} | Component: {displayName}");
         }
 
         protected abstract Vector2 PutNode(Vector2 position);
